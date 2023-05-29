@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:manga_app_2022/models/favorite_model.dart';
@@ -46,7 +45,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
         if(snapshot.connectionState == ConnectionState.done){
           
           for(var i = 0; i < localDB.length; i++){
-            if(localDB.getAt(i)?.malId == snapshot.data?.malId){
+            if(localDB.getAt(i)?.malId == snapshot.data?.manga?.malId){
               _isFavorite = true;
               _indexFavorite = i;
             }
@@ -70,7 +69,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                     onPressed: (){
                       setState(() {
                         if(!_isFavorite){
-                          localDB.add(Favorite(malId: snapshot.data?.malId, title: snapshot.data?.title, url: snapshot.data?.url, imageUrl: snapshot.data?.imageUrl, synopsis: snapshot.data?.synopsis, score: snapshot.data?.score));
+                          localDB.add(Favorite(malId: snapshot.data?.manga?.malId, title: snapshot.data?.manga?.title, url: snapshot.data?.manga?.url, imageUrl: snapshot.data?.manga?.images?.jpg?.imageUrl, synopsis: snapshot.data?.manga?.synopsis, score: snapshot.data?.manga?.score));
                           _isFavorite = true;
                         }else{
                           localDB.getAt(_indexFavorite)?.delete();
@@ -87,24 +86,25 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                     margin: EdgeInsets.only(top: 8, bottom: 12, left: 20, right: 25),
                     height: 49,
                     color: Colors.transparent,
-                    child: FlatButton(
-                      color: Colors.blueGrey,
+                    child: TextButton(
                       onPressed: () async {
                         //String url = '${snapshot.data?.url}';
 
-                        _launchUrl = '${snapshot.data?.url}';
+                        _launchUrl = '${snapshot.data?.manga?.url}';
                         _launchInBrowser(_launchUrl);
-                        
                       },
+                      style: TextButton.styleFrom(
+                        // primary: Colors.purpleAccent,
+                        backgroundColor: Colors.purpleAccent,
+                      ),
                       child: Text(
                         'Go to Website',
-                        style: GoogleFonts.openSans(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
                         ),
                       ),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     ),
                   ),
                 ),
@@ -146,7 +146,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     image:  DecorationImage(
-                                        image: NetworkImage('${snapshot.data?.imageUrl}')
+                                        image: NetworkImage('${snapshot.data?.manga?.images?.jpg?.imageUrl}')
                                     )
                                 ),
                               ),
@@ -161,7 +161,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                         [
                           Padding(
                             padding: EdgeInsets.only(top: 24, left: 25),
-                            child: Text('${snapshot.data?.title}', style: GoogleFonts.openSans(
+                            child: Text('${snapshot.data?.manga?.title}', style: TextStyle(
                                 fontSize: 27,
                                 color: Colors.black,
                                 fontWeight: FontWeight.w600),
@@ -169,7 +169,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 7, left: 25),
-                            child: Text('${snapshot.data?.type}', style: GoogleFonts.openSans(
+                            child: Text('${snapshot.data?.manga?.type}', style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w400),
@@ -183,13 +183,13 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                               children: [
                                 Icon(Icons.star, color: Colors.amber, size: 40,),
                                 SizedBox(width: 15,),
-                                Text('${snapshot.data?.score}', style: GoogleFonts.openSans(
+                                Text('${snapshot.data?.manga?.score}', style: TextStyle(
                                     fontSize: 32,
                                     color: Colors.blueGrey,
                                     fontWeight: FontWeight.w400),
                                 ),
                                 SizedBox(width: 10,),
-                                Text('(${snapshot.data?.scored_by})', style: GoogleFonts.openSans(
+                                Text('(${snapshot.data?.manga?.scored_by})', style: TextStyle(
                                     fontSize: 20,
                                     color: Colors.grey,
                                     fontWeight: FontWeight.w400),
@@ -210,11 +210,11 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                               isScrollable: true,
                               labelColor: Colors.black,
                               unselectedLabelColor: Colors.grey,
-                              labelStyle: GoogleFonts.openSans(
+                              labelStyle: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w700
                               ),
-                              unselectedLabelStyle: GoogleFonts.openSans(
+                              unselectedLabelStyle: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600
                               ),
@@ -250,7 +250,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                         children: [
                                           Container(
                                             width: 100,
-                                            child: Text('Status', style: GoogleFonts.openSans(
+                                            child: Text('Status', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.grey,
                                                 fontWeight: FontWeight.w400),
@@ -258,7 +258,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                           ),
                                           SizedBox(width: 10,),
                                           Expanded(
-                                            child: Text('${snapshot.data?.status}', style: GoogleFonts.openSans(
+                                            child: Text('${snapshot.data?.manga?.status}', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w400),
@@ -273,7 +273,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                         children: [
                                           Container(
                                             width: 100,
-                                            child: Text('Rank', style: GoogleFonts.openSans(
+                                            child: Text('Rank', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.grey,
                                                 fontWeight: FontWeight.w400),
@@ -281,7 +281,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                           ),
                                           SizedBox(width: 10,),
                                           Expanded(
-                                            child: Text('${snapshot.data?.rank}', style: GoogleFonts.openSans(
+                                            child: Text('${snapshot.data?.manga?.rank}', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w400),
@@ -296,7 +296,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                         children: [
                                           Container(
                                             width: 100,
-                                            child: Text('Published', style: GoogleFonts.openSans(
+                                            child: Text('Published', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.grey,
                                                 fontWeight: FontWeight.w400),
@@ -304,7 +304,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                           ),
                                           SizedBox(width: 10,),
                                           Expanded(
-                                            child: Text('${snapshot.data?.published}', style: GoogleFonts.openSans(
+                                            child: Text('${snapshot.data?.manga?.published}', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w400),
@@ -319,7 +319,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                         children: [
                                           Container(
                                             width: 100,
-                                            child: Text('Members', style: GoogleFonts.openSans(
+                                            child: Text('Members', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.grey,
                                                 fontWeight: FontWeight.w400),
@@ -327,7 +327,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                           ),
                                           SizedBox(width: 10,),
                                           Expanded(
-                                            child: Text('(${snapshot.data?.members})', style: GoogleFonts.openSans(
+                                            child: Text('(${snapshot.data?.manga?.members})', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w400),
@@ -342,7 +342,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                         children: [
                                           Container(
                                             width: 100,
-                                            child: Text('Volumes', style: GoogleFonts.openSans(
+                                            child: Text('Volumes', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.grey,
                                                 fontWeight: FontWeight.w400),
@@ -350,7 +350,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                           ),
                                           SizedBox(width: 10,),
                                           Expanded(
-                                            child: Text('${snapshot.data?.volumes}', style: GoogleFonts.openSans(
+                                            child: Text('${snapshot.data?.manga?.volumes}', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w400),
@@ -365,7 +365,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                         children: [
                                           Container(
                                             width: 100,
-                                            child: Text('Chapters', style: GoogleFonts.openSans(
+                                            child: Text('Chapters', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.grey,
                                                 fontWeight: FontWeight.w400),
@@ -373,7 +373,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                           ),
                                           SizedBox(width: 10,),
                                           Expanded(
-                                            child: Text('${snapshot.data?.chapters}', style: GoogleFonts.openSans(
+                                            child: Text('${snapshot.data?.manga?.chapters}', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w400),
@@ -388,7 +388,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                         children: [
                                           Container(
                                             width: 100,
-                                            child: Text('Popularity', style: GoogleFonts.openSans(
+                                            child: Text('Popularity', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.grey,
                                                 fontWeight: FontWeight.w400),
@@ -396,7 +396,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                           ),
                                           SizedBox(width: 10,),
                                           Expanded(
-                                            child: Text('${snapshot.data?.popularity}', style: GoogleFonts.openSans(
+                                            child: Text('${snapshot.data?.manga?.popularity}', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w400),
@@ -411,7 +411,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                         children: [
                                           Container(
                                             width: 100,
-                                            child: Text('Favorites', style: GoogleFonts.openSans(
+                                            child: Text('Favorites', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.grey,
                                                 fontWeight: FontWeight.w400),
@@ -419,7 +419,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                           ),
                                           SizedBox(width: 10,),
                                           Expanded(
-                                            child: Text('${snapshot.data?.favorites}', style: GoogleFonts.openSans(
+                                            child: Text('${snapshot.data?.manga?.favorites}', style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w400),
@@ -439,7 +439,7 @@ class _SelectedMangaScreenState extends State<SelectedMangaScreen> with TickerPr
                                   // )
                                 ),
                                 Container(
-                                    child: Text('${snapshot.data?.synopsis}', style: GoogleFonts.openSans(
+                                    child: Text('${snapshot.data?.manga?.synopsis}', style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
                                       color: Colors.black,

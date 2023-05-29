@@ -6,14 +6,39 @@ DetailModel detailModelFromJson(String str) => DetailModel.fromJson(json.decode(
 String detailModelToJson(DetailModel data) => json.encode(data.toJson());
 
 class DetailModel {
-  String? requestHash;
-  bool? requestCached;
-  int? requestCacheExpiry;
+  Manga? manga;
+
+  DetailModel({
+    this.manga
+  });
+
+  DetailModel.fromJson(Map<String, dynamic> json) {
+    manga = json['data'] != null ? new Manga.fromJson(json['data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.manga != null) {
+      data['data'] = this.manga!.toJson();
+    }
+    return data;
+  }
+
+  // factory DetailModel.fromJson(Map<String, dynamic> json) => new DetailModel(
+  //   manga: this.manga.fromJson(json['data']),
+  // );
+
+  // Map<String, dynamic> toJson() => {
+  // };
+
+}
+
+class Manga {
   int? malId;
   String? url;
   String? title;
   String? status;
-  String? imageUrl;
+  Images? images;
   String? type;
   int? volumes;
   int? chapters;
@@ -26,15 +51,12 @@ class DetailModel {
   int? favorites;
   String? synopsis;
 
-  DetailModel({
-    this.requestHash,
-    this.requestCached,
-    this.requestCacheExpiry,
+  Manga({
     this.malId,
     this.url,
     this.title,
     this.status,
-    this.imageUrl,
+    this.images,
     this.type,
     this.volumes,
     this.chapters,
@@ -48,15 +70,12 @@ class DetailModel {
     this.synopsis,
   });
 
-  factory DetailModel.fromJson(Map<String, dynamic> json) => new DetailModel(
-    requestHash: json["request_hash"],
-    requestCached: json["request_chached"],
-    requestCacheExpiry: json["request_cahce_expiry"],
+  factory Manga.fromJson(Map<String, dynamic> json) => new Manga(
     malId: json["mal_id"],
     url: json["url"],
     title: json["title"],
     status: json["status"],
-    imageUrl: json["image_url"],
+    images : json['images'] != null ? new Images.fromJson(json['images']) : null,
     type: json["type"],
     volumes: json["volumes"],
     chapters: json["chapters"],
@@ -71,14 +90,11 @@ class DetailModel {
   );
 
   Map<String, dynamic> toJson() => {
-    "request_hash": requestHash,
-    "request_chached": requestCached,
-    "request_cahce_expiry": requestCacheExpiry,
     "mal_id": malId,
     "url": url,
     "title": title,
     "status": status,
-    "image_url": imageUrl,
+    "images": images,
     "type": type,
     "volumes": volumes,
     "chapters": chapters,
@@ -91,4 +107,38 @@ class DetailModel {
     "favorites": favorites,
     "synopsis": synopsis,
   };
+}
+
+class Images {
+  Jpg? jpg;
+
+  Images({this.jpg});
+
+  Images.fromJson(Map<String, dynamic> json) {
+    jpg = json['jpg'] != null ? new Jpg.fromJson(json['jpg']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.jpg != null) {
+      data['jpg'] = this.jpg!.toJson();
+    }
+    return data;
+  }
+}
+
+class Jpg {
+  String? imageUrl;
+
+  Jpg({this.imageUrl});
+
+  Jpg.fromJson(Map<String, dynamic> json) {
+    imageUrl = json['image_url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['image_url'] = this.imageUrl;
+    return data;
+  }
 }

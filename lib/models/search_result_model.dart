@@ -5,29 +5,17 @@ SearchResultModel searchResultModelFromJson(String str) => SearchResultModel.fro
 String searchResultModelToJson(SearchResultModel data) => json.encode(data.toJson());
 
 class SearchResultModel {
-  String? requestHash;
-  bool? requestCached;
-  int? requestCacheExpiry;
   late List<Manga> manga;
 
   SearchResultModel({
-    this.requestHash,
-    this.requestCached,
-    this.requestCacheExpiry,
     required this.manga,
   });
 
   factory SearchResultModel.fromJson(Map<String, dynamic> json) => new SearchResultModel(
-    requestHash: json["request_hash"],
-    requestCached: json["request_cached"],
-    requestCacheExpiry: json["request_cache_expiry"],
-    manga: new List<Manga>.from(json["results"].map((x) => Manga.fromJson(x))),
+    manga: new List<Manga>.from(json["data"].map((x) => Manga.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "request_hash": requestHash,
-    "request_cached": requestCached,
-    "request_cache_expiry": requestCacheExpiry,
     "manga": new List<dynamic>.from(manga.map((x) => x.toJson())),
   };
 }
@@ -38,7 +26,7 @@ class Manga {
   String? url;
   String? synopsis;
   String? type;
-  String? imageUrl;
+  Images? images;
   double? score;
 
   Manga({
@@ -47,7 +35,7 @@ class Manga {
     this.url,
     this.synopsis,
     this.type,
-    this.imageUrl,
+    this.images,
     this.score,
   });
 
@@ -57,7 +45,7 @@ class Manga {
     url: json['url'],
     synopsis: json['synopsis'],
     type: json['type'],
-    imageUrl: json['image_url'],
+    images: json['images'] != null ? new Images.fromJson(json['images']) : null,
     score: json['score'] == null ? null : json['score'].toDouble(),
   );
 
@@ -67,7 +55,41 @@ class Manga {
     "url": url,
     "synopsis": synopsis,
     "type": type,
-    "image_url": imageUrl,
+    "images": images,
     "score": score,
   };
+}
+
+class Images {
+  Jpg? jpg;
+
+  Images({this.jpg});
+
+  Images.fromJson(Map<String, dynamic> json) {
+    jpg = json['jpg'] != null ? new Jpg.fromJson(json['jpg']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.jpg != null) {
+      data['jpg'] = this.jpg!.toJson();
+    }
+    return data;
+  }
+}
+
+class Jpg {
+  String? imageUrl;
+
+  Jpg({this.imageUrl});
+
+  Jpg.fromJson(Map<String, dynamic> json) {
+    imageUrl = json['image_url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['image_url'] = this.imageUrl;
+    return data;
+  }
 }

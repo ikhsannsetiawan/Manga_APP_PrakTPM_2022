@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({Key? key}) : super(key: key);
@@ -26,7 +25,7 @@ class AboutScreen extends StatelessWidget {
                 Container(
                   child: Text(
                     'MANGAGAN',
-                    style: GoogleFonts.openSans(
+                    style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 10,
@@ -37,32 +36,32 @@ class AboutScreen extends StatelessWidget {
                 Container(
                   child: Text(
                     'MANGAGAN adalah aplikasi pencarian manga',
-                    style: GoogleFonts.openSans(
+                    style: TextStyle(
                       fontSize: 12,
                     ),
                   ),
                 ),
                 SizedBox(height: 32,),
-                Container(
-                  child: Text(
-                    'ANGGOTA KELOMPOK :',
-                    style: GoogleFonts.openSans(
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-                Container(
-                  child: Text(
-                    '123190111 - IKHSAN SETIAWAN',
-                    style: GoogleFonts.openSans(
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
+                // Container(
+                //   child: Text(
+                //     'ANGGOTA KELOMPOK :',
+                //     style: GoogleFonts.openSans(
+                //       fontSize: 14,
+                //     ),
+                //   ),
+                // ),
+                // Container(
+                //   child: Text(
+                //     '123190111 - IKHSAN SETIAWAN',
+                //     style: GoogleFonts.openSans(
+                //       fontSize: 14,
+                //     ),
+                //   ),
+                // ),
                 Container(
                   child: Text(
                     '123190121 - M. PATTY AMAL MADANI',
-                    style: GoogleFonts.openSans(
+                    style: TextStyle(
                       fontSize: 14,
                     ),
                   ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:manga_app_2022/models/search_result_model.dart';
 import 'package:manga_app_2022/providers/manga_network.dart';
 import 'package:manga_app_2022/screens/selected_manga_screen.dart';
@@ -25,14 +24,14 @@ class _SearchScreenState extends State<SearchScreen> {
         title: !_isSearching 
             ? Text(
             'Search Manga',
-          style: GoogleFonts.openSans(
+          style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w600,
               color: Colors.white
           ),
         )
             : TextField(
-          style: GoogleFonts.openSans(
+          style: TextStyle(
               fontWeight: FontWeight.w600,
               color: Colors.white
           ),
@@ -40,7 +39,7 @@ class _SearchScreenState extends State<SearchScreen> {
           decoration: InputDecoration(
             icon: Icon(Icons.search, color: Colors.amber,),
             hintText: "Search Manga Here",
-            hintStyle: GoogleFonts.openSans(
+            hintStyle:TextStyle(
                 fontSize: 12,
                 color: Colors.white70,
                 fontWeight: FontWeight.w600
@@ -89,7 +88,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     margin: EdgeInsets.only(left: 25, right: 25, top: 25),
                     child: Text(
                       "Search result for \"$_querySearch\"",
-                      style: GoogleFonts.openSans(
+                      style: TextStyle(
                           fontSize: 14,
                           color: Colors.black,
                           fontWeight: FontWeight.w600
@@ -121,7 +120,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         image: DecorationImage(
                                           fit: BoxFit.fill,
                                           image: NetworkImage(
-                                            '${snapshot.data.manga[index].imageUrl}',
+                                            '${snapshot.data.manga[index].images.jpg.imageUrl}',
                                           ),
                                         ),
                                         boxShadow: [
@@ -171,7 +170,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         overflow: TextOverflow.fade,
                                         maxLines: 1,
                                         softWrap: false,
-                                        style: GoogleFonts.openSans(
+                                        style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black
@@ -183,7 +182,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 2,
                                         softWrap: false,
-                                        style: GoogleFonts.openSans(
+                                        style: TextStyle(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w400,
                                             color: Colors.grey
@@ -194,7 +193,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         children: [
                                           Icon(Icons.star, color: Colors.amber,),
                                           SizedBox(width: 10,),
-                                          Text('${snapshot.data.manga[index].score}', style: GoogleFonts.openSans(
+                                          Text('${snapshot.data.manga[index].score}', style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
                                               color: Colors.black

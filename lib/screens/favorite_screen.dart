@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:manga_app_2022/models/favorite_model.dart';
@@ -35,7 +34,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     margin: EdgeInsets.only(left: 25, right: 25, top: 25),
                     child: Text(
                       'Your Favorite Manga',
-                      style: GoogleFonts.openSans(
+                      style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w600,
                           color: Colors.black
@@ -112,7 +111,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                         overflow: TextOverflow.fade,
                                         maxLines: 1,
                                         softWrap: false,
-                                        style: GoogleFonts.openSans(
+                                        style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black
@@ -124,7 +123,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 2,
                                         softWrap: false,
-                                        style: GoogleFonts.openSans(
+                                        style: TextStyle(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w400,
                                             color: Colors.grey
@@ -135,7 +134,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                         children: [
                                           Icon(Icons.star, color: Colors.amber,),
                                           SizedBox(width: 10,),
-                                          Text('${localDB.getAt(index)?.score}', style: GoogleFonts.openSans(
+                                          Text('${localDB.getAt(index)?.score}', style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
                                               color: Colors.black

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:manga_app_2022/screens/about_screen.dart';
 import 'package:manga_app_2022/screens/favorite_screen.dart';
 import 'package:manga_app_2022/screens/home_screen.dart';
+import 'package:manga_app_2022/screens/konversi_screen.dart';
 import 'package:manga_app_2022/screens/search_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class _MainScreenState extends State<MainScreen> {
     SearchScreen(),
     FavoriteScreen(),
     AboutScreen(),
+    // KonversiScreen(),
   ];
 
   @override
@@ -38,6 +40,7 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
           BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorite"),
           BottomNavigationBarItem(icon: Icon(Icons.info), label: "About"),
+          // BottomNavigationBarItem(icon: Icon(Icons.calculate), label: "Konversi"),
         ],
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:manga_app_2022/models/home_data_model.dart';
 import 'package:manga_app_2022/providers/manga_network.dart';
 import 'package:manga_app_2022/screens/search_screen.dart';
@@ -16,10 +15,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  final _searchController = TextEditingController();
+  //final _searchController = TextEditingController();
+  //String _querySearch = "";
   int _selectedIndex = 0;
   String _category = "manga";
-  String _querySearch = "";
+
 
   late Future<HomeDataModel> _loadManga;
 
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text(
                       'Hi, Mangangers',
-                      style: GoogleFonts.openSans(
+                      style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: Colors.grey
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Text(
                       'Explore Manga',
-                      style: GoogleFonts.openSans(
+                      style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w600,
                           color: Colors.black
@@ -206,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: NetworkImage(
-                                              '${snapshot.data.manga[index].imageUrl}',
+                                              '${snapshot.data.manga[index].images.jpg.imageUrl}',
                                             ),
                                           ),
                                           boxShadow: [
@@ -256,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           overflow: TextOverflow.fade,
                                           maxLines: 1,
                                           softWrap: false,
-                                          style: GoogleFonts.openSans(
+                                          style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black
@@ -268,7 +268,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 2,
                                           softWrap: false,
-                                          style: GoogleFonts.openSans(
+                                          style: TextStyle(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w400,
                                             color: Colors.grey
@@ -279,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           children: [
                                             Icon(Icons.star, color: Colors.amber,),
                                             SizedBox(width: 10,),
-                                            Text('${snapshot.data.manga[index].score}', style: GoogleFonts.openSans(
+                                            Text('${snapshot.data.manga[index].score}', style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.black

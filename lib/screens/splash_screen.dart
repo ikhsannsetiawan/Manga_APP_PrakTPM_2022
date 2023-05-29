@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:manga_app_2022/screens/home_screen_ex.dart';
 import 'package:manga_app_2022/screens/home_screen.dart';
 import 'package:manga_app_2022/screens/main_screen.dart';
@@ -46,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             Text(
               'MANGAGAN',
-              style: GoogleFonts.openSans(
+              style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 10,
